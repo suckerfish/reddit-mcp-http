@@ -375,7 +375,7 @@ def get_post_comments(post_id: str, limit: int = Field(default=10, ge=1, le=100)
 def parse_arguments():
     """Parse command-line arguments."""
     parser = argparse.ArgumentParser(description='Reddit MCP Server using FastMCP')
-    parser.add_argument('--port', type=int, default=8080, help='Port for HTTP transport (default: 8080)')
+    parser.add_argument('--port', type=int, default=8081, help='Port for HTTP transport (default: 8081)')
     parser.add_argument('--host', default='127.0.0.1', help='Host for HTTP transport (default: 127.0.0.1)')
     parser.add_argument(
         '--transport', 

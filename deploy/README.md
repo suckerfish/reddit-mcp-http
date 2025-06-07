@@ -18,7 +18,7 @@ This guide walks you through deploying the Reddit MCP Server on your VPS as an a
 
 3. **Test the deployment:**
    ```bash
-   curl http://localhost:8080/mcp/health
+   curl http://localhost:8081/mcp/health
    ```
 
 That's it! Your Reddit MCP server is now running as a systemd service.
@@ -30,7 +30,7 @@ That's it! Your Reddit MCP server is now running as a systemd service.
 3. ✅ Sets up the application in `/opt/reddit-mcp/`
 4. ✅ Creates a Python virtual environment and installs dependencies
 5. ✅ Configures a systemd service for auto-start and restarts
-6. ✅ Starts the MCP server with streamable HTTP on port 8080
+6. ✅ Starts the MCP server with streamable HTTP on port 8081
 
 ## Available Tools
 
@@ -72,17 +72,17 @@ sudo systemctl start reddit-mcp
 
 **Health check:**
 ```bash
-curl http://localhost:8080/mcp/health
+curl http://localhost:8081/mcp/health
 ```
 
 **Test tools endpoint:**
 ```bash
-curl http://localhost:8080/mcp/tools
+curl http://localhost:8081/mcp/tools
 ```
 
 **Test frontpage posts:**
 ```bash
-curl -X POST http://localhost:8080/mcp/tools/call \
+curl -X POST http://localhost:8081/mcp/tools/call \
   -H "Content-Type: application/json" \
   -d '{
     "name": "get_frontpage_posts", 
@@ -94,7 +94,7 @@ curl -X POST http://localhost:8080/mcp/tools/call \
 
 **Test subreddit info:**
 ```bash
-curl -X POST http://localhost:8080/mcp/tools/call \
+curl -X POST http://localhost:8081/mcp/tools/call \
   -H "Content-Type: application/json" \
   -d '{
     "name": "get_subreddit_info", 
@@ -106,7 +106,7 @@ curl -X POST http://localhost:8080/mcp/tools/call \
 
 **Test subreddit posts:**
 ```bash
-curl -X POST http://localhost:8080/mcp/tools/call \
+curl -X POST http://localhost:8081/mcp/tools/call \
   -H "Content-Type: application/json" \
   -d '{
     "name": "get_subreddit_hot_posts", 
@@ -124,7 +124,7 @@ Connect your MCP client using streamable HTTP:
 ```json
 {
   "type": "streamable-http", 
-  "url": "http://YOUR_TAILSCALE_IP:8080/mcp"
+  "url": "http://YOUR_TAILSCALE_IP:8081/mcp"
 }
 ```
 
@@ -134,7 +134,7 @@ Replace `YOUR_TAILSCALE_IP` with your VPS's Tailscale IP address.
 
 - **RAM**: ~100-150MB
 - **Storage**: ~400MB
-- **Network**: Port 8080 (adjust firewall as needed)
+- **Network**: Port 8081 (adjust firewall as needed)
 
 ## Security Notes
 
@@ -158,7 +158,7 @@ sudo -u reddit-mcp /opt/reddit-mcp/venv/bin/pip list
 
 **Manual test:**
 ```bash
-sudo -u reddit-mcp /opt/reddit-mcp/venv/bin/python /opt/reddit-mcp/src/server.py --transport streamable-http --host 0.0.0.0 --port 8080
+sudo -u reddit-mcp /opt/reddit-mcp/venv/bin/python /opt/reddit-mcp/src/server.py --transport streamable-http --host 0.0.0.0 --port 8081
 ```
 
 **Update to latest code:**

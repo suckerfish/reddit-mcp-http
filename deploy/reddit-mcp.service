@@ -9,7 +9,7 @@ Group=reddit-mcp
 WorkingDirectory=/opt/reddit-mcp
 Environment=PATH=/opt/reddit-mcp/venv/bin
 Environment=PYTHONPATH=/opt/reddit-mcp/src
-ExecStart=/opt/reddit-mcp/venv/bin/python src/server.py --transport streamable-http --host 0.0.0.0 --port 8080
+ExecStart=/opt/reddit-mcp/venv/bin/python src/server.py --transport streamable-http --host 0.0.0.0 --port 8081
 Restart=always
 RestartSec=3
 StandardOutput=journal

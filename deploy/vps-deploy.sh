@@ -75,16 +75,16 @@ systemctl status reddit-mcp --no-pager -l
 
 echo ""
 echo "📡 Your Reddit MCP server is running on:"
-echo "   http://$(hostname -I | awk '{print $1}'):8080/mcp"
+echo "   http://$(hostname -I | awk '{print $1}'):8081/mcp"
 echo ""
 echo "🔧 Useful commands:"
 echo "   sudo systemctl status reddit-mcp     # Check status"
 echo "   sudo systemctl restart reddit-mcp    # Restart service"
 echo "   sudo journalctl -u reddit-mcp -f     # View logs"
-echo "   curl http://localhost:8080/mcp/health # Test endpoint"
+echo "   curl http://localhost:8081/mcp/health # Test endpoint"
 echo ""
 echo "🔗 Connect your MCP client to:"
-echo '   {"type": "streamable-http", "url": "http://YOUR_TAILSCALE_IP:8080/mcp"}'
+echo '   {"type": "streamable-http", "url": "http://YOUR_TAILSCALE_IP:8081/mcp"}'
 echo ""
 echo "🌐 Available Reddit tools:"
 echo "   - get_frontpage_posts"

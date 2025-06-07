@@ -44,7 +44,7 @@ A FastMCP server that provides tools for accessing Reddit's public API through t
 
 3. **Run as HTTP server:**
    ```bash
-   uv run src/server.py --transport streamable-http --port 8080
+   uv run src/server.py --transport streamable-http --port 8081
    ```
 
 ### VPS Deployment
@@ -96,7 +96,7 @@ mcp call get_frontpage_posts --params '{"limit":10}' uv run src/server.py
 {
   "reddit-mcp": {
     "type": "streamable-http",
-    "url": "http://your-server:8080/mcp"
+    "url": "http://your-server:8081/mcp"
   }
 }
 ```
