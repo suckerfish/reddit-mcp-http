@@ -1,0 +1,26 @@
+[Unit]
+Description=Reddit MCP Server
+After=network.target
+
+[Service]
+Type=simple
+User=reddit-mcp
+Group=reddit-mcp
+WorkingDirectory=/opt/reddit-mcp
+Environment=PATH=/opt/reddit-mcp/venv/bin
+Environment=PYTHONPATH=/opt/reddit-mcp/src
+ExecStart=/opt/reddit-mcp/venv/bin/python src/server.py --transport streamable-http --host 0.0.0.0 --port 8080
+Restart=always
+RestartSec=3
+StandardOutput=journal
+StandardError=journal
+
+# Security settings
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/reddit-mcp/logs
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
