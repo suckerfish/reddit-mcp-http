@@ -4,31 +4,51 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a template for creating FastMCP servers that expose tools and resources to AI systems via the Model Context Protocol (MCP). The template provides a foundation for building both local and remote MCP servers with proper authentication, testing, and deployment configurations.
+**✅ COMPLETED PROJECT**: Reddit MCP Server using FastMCP
 
-FastMCP servers act as bridges between AI applications (like Claude, ChatGPT) and your APIs or services, allowing AI systems to discover and use your tools intelligently.
+This is a complete, production-ready FastMCP server that provides 8 tools for accessing Reddit's public API through the Model Context Protocol (MCP). The server supports both local (stdio) and remote (streamable-http) transport modes with automated VPS deployment.
+
+**🚀 Project Status: COMPLETE & DEPLOYED**
+- ✅ All 8 Reddit API tools implemented and tested
+- ✅ FastMCP integration with dual transport support
+- ✅ Production deployment with systemd service
+- ✅ Comprehensive documentation and testing
+- ✅ GitHub repository created and published
+- ✅ Uses redditwarp library for Reddit API access
+
+**🔗 Repository**: https://github.com/suckerfish/reddit-mcp-http
 
 ## Quick Commands
 
-### Testing MCP Servers
+### Testing Reddit MCP Server
 
-Use MCPTools to test any MCP server implementation:
+Use MCPTools to test the Reddit MCP server:
 
 ```bash
-# List all available tools 
-mcp tools <command-that-starts-your-server>
+# List all available Reddit tools 
+mcp tools uv run src/server.py
 
-# Call a specific tool with parameters
-mcp call <tool-name> --params '{"param1":"value1"}' <command-that-starts-your-server>
+# Test specific Reddit tools
+mcp call get_subreddit_info --params '{"subreddit_name":"programming"}' uv run src/server.py
+mcp call get_frontpage_posts --params '{"limit":5}' uv run src/server.py
+mcp call get_subreddit_hot_posts --params '{"subreddit_name":"python","limit":3}' uv run src/server.py
 
 # Start interactive testing shell
-mcp shell <command-that-starts-your-server>
+mcp shell uv run src/server.py
 
-# View server logs during testing
-mcp tools --server-logs <command-that-starts-your-server>
+# Run as HTTP server for remote testing
+uv run src/server.py --transport streamable-http --port 8081
 ```
 
-**Note**: Do not start the server separately. MCPTools will start it and communicate with it via stdio.
+### Available Reddit Tools
+- `get_frontpage_posts` - Get hot posts from Reddit frontpage
+- `get_subreddit_info` - Get basic information about a subreddit  
+- `get_subreddit_hot_posts` - Get hot posts from a specific subreddit
+- `get_subreddit_new_posts` - Get new posts from a specific subreddit
+- `get_subreddit_top_posts` - Get top posts with time filtering
+- `get_subreddit_rising_posts` - Get rising posts from a specific subreddit
+- `get_post_content` - Get detailed post content including comments
+- `get_post_comments` - Get comments from a specific post
 
 ### Package Management
 
@@ -106,14 +126,44 @@ async def authenticated_tool(param: str, ctx: Context) -> dict:
     return {"result": f"Hello user {user_id}"}
 ```
 
-## Key Development Workflow
+## Production Deployment
 
-1. **Create Tools**: Define functions with `@mcp.tool()` decorator
-2. **Test Locally**: Use `mcp tools python src/server.py` to verify tools work
-3. **Add Validation**: Use Pydantic models for input validation
-4. **Handle Errors**: Use `ToolError` for client-visible errors
-5. **Test Integration**: Use `mcp shell python src/server.py` for interactive testing
-6. **Deploy**: Configure for production deployment
+### VPS Deployment (Automated)
+```bash
+# Clone and deploy to VPS
+git clone https://github.com/suckerfish/reddit-mcp-http.git
+cd reddit-mcp-http
+sudo ./deploy/vps-deploy.sh
+```
+
+### Service Management
+```bash
+# Check service status
+sudo systemctl status reddit-mcp
+
+# View logs
+sudo journalctl -u reddit-mcp -f
+
+# Restart service  
+sudo systemctl restart reddit-mcp
+
+# Test deployment
+curl http://localhost:8081/mcp/health
+```
+
+## Implementation Details
+
+**✅ Architecture**:
+- Built with FastMCP framework
+- Uses `redditwarp` library for Reddit API access
+- Pydantic models for data validation and serialization
+- Dual transport: stdio (local) and streamable-http (remote)
+- Default port: 8081
+
+**✅ No Authentication Required**: 
+- Uses Reddit's public API only
+- No API keys or credentials needed
+- Rate limiting handled gracefully
 
 ## MCP Server Types
 
@@ -166,15 +216,18 @@ When working with this codebase, focus on:
 5. **Authentication**: Use Context for user-specific operations
 6. **Documentation**: Include clear docstrings for all tools and functions
 
-## Environment Variables
+## Reddit MCP Server Configuration
 
-Key configuration variables:
+**✅ Default Configuration**:
+- Port: 8081 (HTTP transport)
+- Host: 0.0.0.0 (production) / 127.0.0.1 (local)
+- Transport: stdio (local) / streamable-http (remote)
+- No environment variables required
+- No API keys needed
+
+**Command-line options**:
 ```bash
-PORT=8000                    # Server port
-DEBUG=false                  # Debug mode
-LOG_LEVEL=info              # Logging level
-DATABASE_URL=sqlite:///app.db # Database connection
-EXTERNAL_API_KEY=key123     # External service keys
+uv run src/server.py --transport streamable-http --host 0.0.0.0 --port 8081
 ```
 
 ## Configuration Patterns
