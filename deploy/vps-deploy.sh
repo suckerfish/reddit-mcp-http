@@ -7,7 +7,7 @@ echo "====================================="
 # Configuration
 APP_DIR="/opt/reddit-mcp"
 APP_USER="reddit-mcp"
-REPO_URL="https://github.com/your-username/reddit-mcp-http.git"  # Update this to your actual repo
+REPO_URL="https://github.com/suckerfish/reddit-mcp-http.git"
 
 # Check if running as root
 if [ "$EUID" -ne 0 ]; then

@@ -27,7 +27,7 @@ A FastMCP server that provides tools for accessing Reddit's public API through t
 
 1. **Clone and setup:**
    ```bash
-   git clone https://github.com/your-username/reddit-mcp-http.git
+   git clone https://github.com/suckerfish/reddit-mcp-http.git
    cd reddit-mcp-http
    uv venv
    uv pip install -e .
@@ -167,5 +167,5 @@ MIT License - see LICENSE file for details.
 ## Support
 
 - 📖 [Deployment Guide](deploy/README.md)
-- 🐛 [Issues](https://github.com/your-username/reddit-mcp-http/issues)
-- 💬 [Discussions](https://github.com/your-username/reddit-mcp-http/discussions)
+- 🐛 [Issues](https://github.com/suckerfish/reddit-mcp-http/issues)
+- 💬 [Discussions](https://github.com/suckerfish/reddit-mcp-http/discussions)

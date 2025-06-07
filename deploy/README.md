@@ -6,7 +6,7 @@ This guide walks you through deploying the Reddit MCP Server on your VPS as an a
 
 1. **Clone the repository on your VPS:**
    ```bash
-   git clone https://github.com/your-username/reddit-mcp-http.git
+   git clone https://github.com/suckerfish/reddit-mcp-http.git
    cd reddit-mcp-http
    ```
 
